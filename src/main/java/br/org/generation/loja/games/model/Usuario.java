@@ -1,48 +1,45 @@
-package br.org.generation.minha.loja.de.games.model;
+package br.org.generation.loja.games.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
-@Table(name = "tb_usuario")
+@Table(name = "tb_usuarios")
 public class Usuario {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@NotBlank(message = "O atributo Nome é Obrigatório!")
+	@NotNull(message = "O atributo Nome é Obrigatório!")
 	private String nome;
-	
-	@NotNull(message = "O atributo Usuario(Email) é Obrigatório!")
-	private String usuario; // e-mail
-	
-	
-	@NotNull(message = "O atributo Senha é Obrigatório!")
-	@Size(min=6) // não colocar o max, se não da problema na hora da criptgrafia da senha.
-	private String senha;
-	
-	@OneToMany(mappedBy="usuario", cascade = CascadeType.REMOVE)	//CascadeType de ALL para REMOVE
-	@JsonIgnoreProperties("usuario")
-	private List<Produto> produto;
-	
-	
-	
-	
 
-	// Criação dos métodos
+	@NotBlank(message = "O atributo Usuário é Obrigatório!")
+	@Email(message = "O atributo Usuário deve ser um email válido!")
+	private String usuario;
+
+	@NotBlank(message = "O atributo Senha é Obrigatório!")
+	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
+	private String senha;
+
+	
+	public Usuario(long id, String nome, String usuario, String senha) {
+
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+	}
+	
+	public Usuario() {	}
+
 	public long getId() {
 		return id;
 	}
@@ -74,16 +71,5 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-	
-	public List<Produto> getProduto() {
-		return produto;
-	}
-
-	public void setProduto(List<Produto> produto) {
-		this.produto = produto;
-	}
-
-	
 
 }

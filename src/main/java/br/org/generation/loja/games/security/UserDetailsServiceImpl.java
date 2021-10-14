@@ -1,4 +1,4 @@
-package br.org.generation.minha.loja.de.games.security;
+package br.org.generation.loja.games.security;
 
 import java.util.Optional;
 
@@ -8,10 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.org.generation.minha.loja.de.games.model.Usuario;
-import br.org.generation.minha.loja.de.games.repository.UsuarioRepository;
-
-
+import br.org.generation.loja.games.model.Usuario;
+import br.org.generation.loja.games.repository.UsuarioRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -22,10 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-		
 		Optional<Usuario> usuario = userRepository.findByUsuario(userName);
-		
-	  
 		usuario.orElseThrow(() -> new UsernameNotFoundException(userName + " not found."));
 
 		return usuario.map(UserDetailsImpl::new).get();

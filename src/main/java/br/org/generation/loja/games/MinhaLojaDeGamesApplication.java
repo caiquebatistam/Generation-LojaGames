@@ -1,4 +1,4 @@
-package br.org.generation.minha.loja.de.games;
+package br.org.generation.loja.games;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
